@@ -1,3 +1,6 @@
+const numbers = [1, 1, 1, 1, 1];
+const target = 3;
+
 //DFS
 function solution(numbers, target) {
     var answer = 0;
