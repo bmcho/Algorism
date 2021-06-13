@@ -17,3 +17,5 @@ function solution(progresses, speeds) {
 
     return answer;
 }
+
+console.log(solution(progresses, speeds));
