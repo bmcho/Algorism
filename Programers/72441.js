@@ -1,48 +1,39 @@
-const orders = ["ABCDE"]; //, , 
+const orders = ["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"];
 const course = [2,3,5];
 
 function solution(orders, course) {
     var answer = [];
-    let setMenu = [];
+    let menu = [];
     let maxOrder = [];
 
+    function combine(str, index, order) {
+        if(course.indexOf(str.length) !== -1) {
+            menu[str] = menu[str] ? menu[str] += 1 : 1;
+            maxOrder[str.length] = maxOrder[str.length] ? menu[str] > maxOrder[str.length] ? menu[str] : maxOrder[str.length] : menu[str];
+        }
 
-    function combine(arr, c) {
-        console.log(arr);
-        arr.forEach(e => {
-            if(c == 1) return arr;
-
-            let menu = combine(arr.slice(1), c-1);
-            
-            
-
-        })
+        for(let i = index; i < order.length; i++){
+            combine(str+order[i], i + 1, order);
+        }
     }
 
     orders.map(order => order.split("").sort()).forEach(e =>{
-        course.forEach(c => {
-            maxOrder[c] = 1;
-
-            combine(e,c);
-            // for(let i = 0; i < e.length-(c-1); i++){
-
-
-            //     let standard = e.slice(i,i+c-1);
-            //     let add = e.slice(i+c-1);
-            //     add.forEach(m => {
-            //         setMenu[standard.concat(m).join("")] = setMenu[standard.concat(m).join("")] ? setMenu[standard.concat(m).join("")] += 1 : 1; 
-            //         // console.log(setMenu[standard.concat(m).join("")] );
-            //         maxOrder[c] = maxOrder[c] > setMenu[standard.concat(m).join("")] ? maxOrder[c] : setMenu[standard.concat(m).join("")];
-            //     });
-            // }
-        });
+            combine('',0,e);
     })
-    setMenu = Object.entries(setMenu);
-    console.log(setMenu);
-    return course.map( c => {
-        console.log(maxOrder[c]);
-        return setMenu.filter(menu => (menu[0].length === c && menu[1] === maxOrder[c] && menu[1] > 1)).map(e => e[0]);
-    }).flatMap(e=> e).sort();
+
+    // console.log(menu);
+    // console.log(maxOrder);
+    
+    menu = Object.entries(menu);
+    return course.map(cnt => {
+        return menu.filter(v => (v[0].length === cnt && v[1] > 1 && maxOrder[cnt] === v[1])).map(e => e[0]);
+    }).flatMap(e=>e).sort();
+    // setMenu = Object.entries(setMenu);
+    // console.log(setMenu);
+    // return course.map( c => {
+    //     console.log(maxOrder[c]);
+    //     return setMenu.filter(menu => (menu[0].length === c && menu[1] === maxOrder[c] && menu[1] > 1)).map(e => e[0]);
+    // }).flatMap(e=> e).sort();
 
     // console.log(setMenu);
     // course.forEach(c => {
@@ -76,106 +67,31 @@ function solution(orders, course) {
 }
 
 
-console.log(solution(orders, course));
-
-
-// console.log("fds".split(''));
-
+solution(orders, course);
 
 function solution1(orders, course) {
-    let answer = [];
-    const list = {};
-    
-    const getCombination = (arr, n) => {
-        // console.log(arr,n);
-        const result = [];
-        if(n === 1) return arr.map(e => [e]);
-        arr.forEach((e, idx, origin) => {
-            const rest = origin.slice(idx + 1);
-            const combinations = getCombination(rest, n-1);
-            console.log(combinations);
-            const attached = combinations.map(combi => [e, ...combi]);
-            result.push(...attached);
-        });
-        return result;
-    }
-    
-    orders.map((order) => {
-        const orderArr = order.split('').sort();
-        //만들수 있는 조합 메뉴의 수는 2부터 시작해서 최대 주문된 구성 수까지
-        for(let i = 2; i <= orderArr.length; i++) {
-        	//만약 조합메뉴의 수가 스카피가 원하는 조합메뉴 수와 일치하지 않는다면 넘어감
-            //구해봤자 스카피는 원하지 않기 때문
-            if(!course.includes(i)) continue;
-            const orderCombis = getCombination(orderArr, i);
-            // console.log(orderCombis);
-            //list라는 Object에 key = 조합 value = 같은 조합이 주문된 수를 넣어줌
-            orderCombis.map(orderCombi => {
-                const string = orderCombi.join('');
-                list[string] = list[string]? list[string] + 1 : 1;
-            });
-        };
-    });
-    
-    let listArr = Object.entries(list);
-    course.map(c => {
-    	//스카피가 원하는 조합메뉴 수와 일치하는 조합과 최소 2번 이상 주문된 조합을 필터링해준다.
-        const candidates = listArr.filter(e => e[0].length === c && e[1] > 1);
-        if(candidates.length > 0) {
-        	//해당하는 조합에서 가장 많이 주문된 주문 수 구하기
-            let max = Math.max(...candidates.map(e => e[1]));
-            //가장 많이 주문된 조합을 answer 배열에 push 해줌
-            candidates.map(e => {
-                if(e[1] === max) answer.push(e[0]);
-            });
+    const setAllCombination = function(cnt, order){
+        const n = order.length;
+        for(let comb = 1; comb < (1 << n); comb++){
+            let res = '';
+            for(let i = 0; i < n; i++){
+                if(comb & (1<<i)) res += order[i];
+            }       
+            if(res.length < 2) continue;
+            if(cnt[res] === undefined) cnt[res] = 0;
+            cnt[res]++;
         }
-    })
-    //마지막으로 알파벳 오름차순으로 정렬해서 return 하기
-    return answer.sort();
-};
+    }
+    const cnt = {};
+    orders.map(order => order.split('').sort()).forEach(order => setAllCombination(cnt, order));
+ 
+    console.log(cnt);
+    const cntArray = Object.entries(cnt).filter(v => v[1] > 1);
+    return course.reduce((ans, c) => {
+        const tmp = cntArray.filter(v => v[0].length === c);
+        const maxVal = tmp.reduce((ret, v) => Math.max(ret, v[1]), -1)
+        return ans.concat(tmp.filter(v => v[1] === maxVal).map(v => v[0]));
+    }, []).sort();
+}
 
 // solution1(orders, course);
-
-
-// function solution2(orders, course) {
-//     const orderedCountMap = new Map();
-//     const maxCountMap = new Map();
-//     const courseSet = new Set(course);
-    
-//     function combination(result, index, str) {
-//         console.log(result);
-//         console.log(index);
-//         console.log(str);
-//         console.log(courseSet);
-//         if (courseSet.has(result.length)) {
-//             let count = orderedCountMap.get(result) || 0;
-//             orderedCountMap.set(result, ++count);
-            
-//             const max = maxCountMap.get(result.length) || 0;
-//             if (max < count) {
-//                 maxCountMap.set(result.length, count);
-//             }
-//         }
-        
-//         for (let i = index; i < str.length; i++) {
-//             combination(result + str[i], i + 1, str);
-//         }
-//     }
-    
-//     orders.map(order => order.split("").sort().join(""))
-//         .forEach(e => combination("", 0, e));
-    
-//     return course
-//         .map(length => {
-//             const max = maxCountMap.get(length);
-//             return Array.from(orderedCountMap)
-//                 .filter(e => 
-//                     e[0].length === length && e[1] >= 2 && e[1] === max
-//                 )
-//                 .map(e => e[0]);
-//         })
-//         .flatMap(e => e)
-//         .sort();
-// }
-
-//  solution2(orders, course);
