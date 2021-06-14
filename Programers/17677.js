@@ -1,8 +1,12 @@
-const str1 = 'aa1+aa2';
-const str2 = 'AAAA12';
+// const str1 = 'E=M*C^2';
+// const str2 = 'e=m*c^2';
 
 // const str1 = 'handshake';
-// const str2 = 'shake hand';
+// const str2 = 'shake hands';
+
+const str1 = "aa1+aa2";
+const str2 = "AAAA12";
+
 
 function solution(str1, str2) {
     var answer = 0;
@@ -10,40 +14,49 @@ function solution(str1, str2) {
     //아스키 코드로 영문비교
     //대문자 65~90, 소문자 97~122
     const divisionStr = (str) => {
-        const returnStr = [];
-        //마지막 글자는 필요가없기때문
-        for(let i = 0; i < str.length-1; i++) {
-            let f = str[i].charCodeAt();
-            let l = str[i+1].charCodeAt();
-
-            // console.log(str[i],f,str[i+1],l);
-            //f가 영문자가 아니라면 i는 +2
-            //l이 영문자가 아니라면 i는 +1
-            if((f < 65 || f > 90) && (f < 97 || f > 122)) {
-                i++;
-                continue;
-            } else if((l < 65 || l > 90) && (l < 97 || l > 122)) {
-                continue;
-            }
-
-            //대문자 변환 아스키코드 -32
-            if(f >= 97 && f <= 122) {
-                f -= 32;
-                l -= 32;
-            }
-
-            returnStr.push(String.fromCharCode(f) + String.fromCharCode(l));
+      const returnStr = [];  
+      const regEx = /^[A-Z]+$/;
+        
+      for(let i = 0; i < str.length-1; i++){
+        let sub = str.substring(i, i+2);
+        if(regEx.test(sub)){
+          returnStr.push(sub);
         }
+      }
+
+        //마지막 글자는 필요가없기때문
+        // for(let i = 0; i < str.length-1; i++) {
+        //     let f = str[i].charCodeAt();
+        //     let l = str[i+1].charCodeAt();
+
+        //     // console.log(str[i],f,str[i+1],l);
+        //     //f가 영문자가 아니라면 i는 +1
+        //     //l이 영문자가 아니라면 i는 +1
+        //     if((f < 65 || f > 90) && (f < 97 || f > 122)) {
+        //         continue;
+        //     } else if((l < 65 || l > 90) && (l < 97 || l > 122)) {
+        //         continue;
+        //     }
+
+        //     //대문자 변환 아스키코드 -32
+        //     if(f >= 97 && f <= 122) {
+        //         f -= 32;
+        //         l -= 32;
+        //     }
+
+        //     // console.log(String.fromCharCode(f) + String.fromCharCode(l));
+        //     returnStr.push(String.fromCharCode(f) + String.fromCharCode(l));
+        // }
 
         return returnStr;
     }
 
+    // let diviStr1 = [];
+    let diviStr1 = divisionStr(str1.toUpperCase());
+    let diviStr2 = divisionStr(str2.toUpperCase());
 
-    let diviStr1 = divisionStr(str1);
-    let diviStr2 = divisionStr(str2);
-
-    console.log(diviStr1);
-    console.log(diviStr2);
+    // console.log(diviStr1);
+    // console.log(diviStr2);
     // //합집합 수 구하기
     // const unionStr = diviStr1.filter(item => diviStr2.includes(item));
 
@@ -57,26 +70,26 @@ function solution(str1, str2) {
     for(let i = 0; i < diviStr1.length; i++) {
         
         if(diviStr2.includes(diviStr1[i])) {
-            console.log(i);
-            intersectionStr.push( diviStr1[i]);
+            // console.log(i);
+            intersectionStr.push(diviStr2.splice(diviStr2.indexOf(diviStr1[i]), 1));
         }
-        console.log(i);
         unionStr.push(diviStr1[i]);
     }
-    console.log(unionStr);
+    // console.log(unionStr);
 
     for(let i = 0; i < diviStr2.length; i++) 
         unionStr.push(diviStr2[i]);
 
-    console.log(unionStr);
-    console.log(intersectionStr);
+    if(!unionStr.length) return 65536;
+    if(!intersectionStr.length) return 0;
 
     return Math.floor((intersectionStr.length / unionStr.length * 65536));
 }
 
- solution(str1, str2);
+ console.log(solution(str1, str2));
 
 
+ //참조
 function solution1(str1, str2) {
     var answer = 1
   
