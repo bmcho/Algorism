@@ -9,7 +9,7 @@ const str2 = "AAAA12";
 
 
 function solution(str1, str2) {
-    var answer = 0;
+    var answer = 0; 
     
     //아스키 코드로 영문비교
     //대문자 65~90, 소문자 97~122

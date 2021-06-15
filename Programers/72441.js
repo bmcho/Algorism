@@ -2,7 +2,7 @@ const orders = ["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"];
 const course = [2,3,5];
 
 function solution(orders, course) {
-    var answer = [];
+    var answer = []; 
     let menu = [];
     let maxOrder = [];
 
