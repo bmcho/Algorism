@@ -1,6 +1,8 @@
+//https://programmers.co.kr/learn/courses/30/lessons/62048
+//멀쩡한 사각형
+
 let w = 6;
 let h = 10;
-
 
 function solution(w, h) {
     var answer = 1;
@@ -16,7 +18,6 @@ function solution(w, h) {
             }
         }
     }
-
     // pW = w/gcd;
     // pH = h/gcd;
 

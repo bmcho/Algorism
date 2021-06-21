@@ -1,5 +1,5 @@
 //https://programmers.co.kr/learn/courses/30/lessons/64065
-
+//튜플
 const s = "{{2},{2,1},{2,1,3},{2,1,3,4}}"
 
 function solution(s) {
@@ -7,6 +7,7 @@ function solution(s) {
     let arr = s.replace(/{{*|}}/g,'').split("},").map(v => v.split(','));
     arr.sort((a,b) => a.length - b.length);
 
+    console.log(arr);
     answer = arr.reduce((acc, cur) => {
         let v = (cur.filter(v => !acc.includes(Number(v)))[0]);
         acc.push(Number(v));

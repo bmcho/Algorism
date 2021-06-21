@@ -1,3 +1,5 @@
+//https://programmers.co.kr/learn/courses/30/lessons/72411
+//메뉴 리뉴얼
 const orders = ["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"];
 const course = [2,3,5];
 
@@ -13,6 +15,7 @@ function solution(orders, course) {
         }
 
         for(let i = index; i < order.length; i++){
+            console.log(str+order[i], i+1);
             combine(str+order[i], i + 1, order);
         }
     }
