@@ -1,3 +1,5 @@
+//https://programmers.co.kr/learn/courses/30/lessons/17677
+//뉴스 클러스터링
 // const str1 = 'E=M*C^2';
 // const str2 = 'e=m*c^2';
 
@@ -11,8 +13,6 @@ const str2 = "AAAA12";
 function solution(str1, str2) {
     var answer = 0; 
     
-    //아스키 코드로 영문비교
-    //대문자 65~90, 소문자 97~122
     const divisionStr = (str) => {
       const returnStr = [];  
       const regEx = /^[A-Z]+$/;
@@ -23,31 +23,6 @@ function solution(str1, str2) {
           returnStr.push(sub);
         }
       }
-
-        //마지막 글자는 필요가없기때문
-        // for(let i = 0; i < str.length-1; i++) {
-        //     let f = str[i].charCodeAt();
-        //     let l = str[i+1].charCodeAt();
-
-        //     // console.log(str[i],f,str[i+1],l);
-        //     //f가 영문자가 아니라면 i는 +1
-        //     //l이 영문자가 아니라면 i는 +1
-        //     if((f < 65 || f > 90) && (f < 97 || f > 122)) {
-        //         continue;
-        //     } else if((l < 65 || l > 90) && (l < 97 || l > 122)) {
-        //         continue;
-        //     }
-
-        //     //대문자 변환 아스키코드 -32
-        //     if(f >= 97 && f <= 122) {
-        //         f -= 32;
-        //         l -= 32;
-        //     }
-
-        //     // console.log(String.fromCharCode(f) + String.fromCharCode(l));
-        //     returnStr.push(String.fromCharCode(f) + String.fromCharCode(l));
-        // }
-
         return returnStr;
     }
 

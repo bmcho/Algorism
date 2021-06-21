@@ -1,3 +1,5 @@
+//https://programmers.co.kr/learn/courses/30/lessons/42586
+//기능개발
 const progresses = [93, 30, 55]; //[95, 90, 99, 99, 80, 99]
 const speeds = [1, 30, 5]; // [1, 1, 1, 1, 1, 1]	
 

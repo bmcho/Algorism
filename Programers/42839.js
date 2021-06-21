@@ -1,7 +1,8 @@
 //https://programmers.co.kr/learn/courses/30/lessons/42839
+//소수찾기
 
 //완전탐색
-const numbers = "4";
+const numbers = "0123";
 
 function solution(numbers) {
     var answer = 0;
@@ -12,7 +13,7 @@ function solution(numbers) {
     const isPrime = (number) => {
         if(number === 1 || number === 0) return false;
     
-        console.log(number);
+        // console.log(number);
         for(let i = 2; i * i <= number; i++) {
             if(number % i === 0) return false; 
         }
@@ -22,6 +23,7 @@ function solution(numbers) {
     const findPrime = (arr, target) => {
         // console.log(target);
         arr.forEach((v,i) => {
+            console.log("v,i : ",v,i);
             if(target === '0') return;
             if(isPrime(Number(target+v))) {
                 result.includes(target+v) ? '' : result.push(target+v);

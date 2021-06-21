@@ -1,3 +1,6 @@
+//https://programmers.co.kr/learn/courses/30/lessons/42888
+//오픈채팅방
+
 const record = ["Enter uid1234 Muzi", "Enter uid4567 Prodo","Leave uid1234","Enter uid1234 Prodo","Change uid4567 Ryan"];
 
 function solution(record) {
@@ -12,6 +15,8 @@ function solution(record) {
         }
     });
     
+    console.log(userInfo['uid1234']);
+
     logs.forEach(log => {
         if(log[0] === 'Enter') {
             answer.push(`${userInfo[log[1]]}님이 들어왔습니다.`);
@@ -21,3 +26,5 @@ function solution(record) {
     });
     return answer;
 }
+
+solution(record);

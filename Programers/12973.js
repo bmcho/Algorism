@@ -1,3 +1,5 @@
+//https://programmers.co.kr/learn/courses/30/lessons/12973
+//짝지어 제어하기
 const s = 'baabaa';
 
 function solution(s)
