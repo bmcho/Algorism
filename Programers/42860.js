@@ -1,7 +1,9 @@
 //https://programmers.co.kr/learn/courses/30/lessons/42860
+//문제 이상 ㅇㅇㅇ 그냥 나중에 그리드는 많이 나오지 않는다...
 //조이스틱
 // const name = "JEROEN";
-const name = "JAN";
+// const name = "JAN";
+const name = "ABAAB";
 
 function solution(name) {
     var answer = 0;
@@ -38,7 +40,7 @@ function solution(name) {
 
             moveDirection = left < right ? false : true;
             answer += moveDirection ? right : left;
-
+            console.log(answer);
             moveDirection ? asciiArr.splice(0,right) : asciiArr.splice(asciiarr.length-1-left)
         }
     }
