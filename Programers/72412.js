@@ -26,6 +26,10 @@ function solution(info, query) {
         combine(arr,score,0);
     });
 
+    for(const key in infoMap) {
+        infoMap[key].sort((a,b) => a - b);
+    }
+
     query.forEach(q => {
         const value = q.replace(/\s+and+\s/g,'').split(/\s(?=[0-9])/g);
         const arr = infoMap[value[0]];
@@ -33,7 +37,8 @@ function solution(info, query) {
 
         let cnt = 0;
         if(arr) {
-            arr.sort((a,b) => a - b);
+            //왜 이렇게 하면 위에서먼저 sort해주는것보다 느릴까?.
+            // arr.sort((a,b) => a - b);
 
             let s = 0;
             let e = arr.length;
@@ -51,7 +56,6 @@ function solution(info, query) {
         answer.push(cnt);
     });
 
-    console.log(answer);
     return answer;
 }
 
