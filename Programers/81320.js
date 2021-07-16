@@ -2,7 +2,7 @@
 //거리두기
 
 const places = [["POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"], ["POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"], ["PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"], ["OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"], ["PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"]];
-// const places = [["PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"]];
+// const places = [["OOPOO", "OPOOO", "OOOOO", "OOOOO", "OOOOO"]] ;
 
 // function solution(places) {
 //     var answer = [];
@@ -70,21 +70,37 @@ function solution(places) {
     
     const movePos = [[1,0],[0,1],[-1,0],[0,-1]];
     const posMap = places.map(v => v.map(p => p.split('')));
-
     
-    const bfs = (row, col, arr, idx) =>{
+    const bfs = (row, col, arr, pPos) =>{
+        //거리 2이하의 숫자만 비교하면 된다.
         const q = [];
+        const visit = new Array(5).fill('').map(v => new Array(5).fill(-1));
+
         q.push([row,col]);
+        visit[row][col] = 0;
 
         while(q.length > 0) {
             let [row,col] = q.pop();
 
-            for(let mv of movePos) {
-                
+            for(let [r,c] of movePos) {
+                let nr = row + r;
+                let nc = col + c;
+                if(nr > -1 && nc > -1 && nr < 5 && nc < 5){
+                    if(arr[nr][nc] !== 'X' && visit[nr][nc] == -1 && visit[row][col] + 1 < 3) {
+                        q.push([nr,nc]);
+                        visit[nr][nc] = visit[row][col] + 1;
+                    }
+                }
             }
-
-            console.log(row,col);
         }
+
+        console.log(visit);
+        //멘헤튼 거리 체크
+        for(let [r,c] of pPos) {
+            if(visit[r][c] !== -1) return false;
+        }
+
+        return true;
     }
 
     posMap.forEach(p => {
@@ -93,15 +109,19 @@ function solution(places) {
             if(c === 'P') pPos.push([ridx, cidx]);
         })) ;
 
-        for(let pos of pPos) {
-            bfs(pos[0],pos[1],posMap,0);
+        let result = true;
+        for(let i = 0; i < pPos.length; i++) {
+            const pos = pPos[i];
+            const sPos = [...pPos];
+            sPos.splice(i,1)
+            result = bfs(pos[0],pos[1], p, sPos);
+            if(!result) break;
         }
-       
+        answer.push(result ? 1 : 0);
     });
-    
 
-
+    console.log(answer);
     return answer;
 }
 
-solution(places);
+solution(places) ;
