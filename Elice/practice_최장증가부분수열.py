@@ -26,11 +26,12 @@
 '''
 dp[n] = max(dp[i]+1, s[n]) s[i] < s[n]{i = 0 ...n-1}
 '''
-s = [-9999] + list(map(int,input().split()))
+s = [0] + list(map(int,input().split()))
 dp = [0] * len(s)
 
 for n in range(1, len(s)) :
     for i in range(n) :
+        print(n,i)
         if s[i] < s[n]:
             dp[n] = max(dp[n], dp[i] + 1)
 
