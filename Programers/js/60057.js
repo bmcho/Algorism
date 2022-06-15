@@ -1,5 +1,5 @@
 //https://programmers.co.kr/learn/courses/30/lessons/60057
-//문자열 압축
+//문자열 압`축
 const s = "ababcdcdababcdcd";
         //    ababcdcd
 
@@ -20,10 +20,11 @@ function solution(s) {
                     run++;
                 } else {
                     result = run > 1 ? result + run + cur : result + cur;
-                    console.log(result);
+                    console.log(`result :   ${result}`);
                     run = 1;
                 }
             }
+            console.log(result);
             // strings.push(string.length);
             answer = answer > result.length ?  result.length : answer;
         }
