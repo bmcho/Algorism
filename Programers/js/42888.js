@@ -7,15 +7,14 @@ function solution(record) {
     var answer = [];
     //해당 ID uid값의 마지막 nickname 값만 가지고 있으면 된다.
     let logs = record.map(log => log.split(' '));
-    
+    console.log(logs)
     let userInfo = {};
     logs.forEach(log => {
         if(log.length === 3){
             userInfo[log[1]] = log[2];
         }
     });
-    
-    console.log(userInfo['uid1234']);
+    console.log(userInfo)
 
     logs.forEach(log => {
         if(log[0] === 'Enter') {
